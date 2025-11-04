@@ -212,7 +212,7 @@ function initengahan(){
       lifelike: true,
       afterComplete: function(){
         pesan6.innerHTML = vketik6;
-      showLoveMessage();
+         showLoveMessage();
         setTimeout(tombol, 400);
       },
     }).go();
