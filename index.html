@@ -176,18 +176,17 @@
     }
   </script>
   <script src="a.js"></script>
-</body>
   <script>
+  // Typing animation for love message
   function showLoveMessage() {
     const loveBox = document.getElementById("loveMessage");
-    loveBox.innerHTML = ""; // clear old content if any
+    loveBox.innerHTML = ""; // clear previous if any
 
-    // Type first message, then the second
     new TypeIt("#loveMessage", {
       speed: 80,
       cursor: true,
-      afterComplete: async (instance) => {
-        // After both messages are typed, wait 5s and fade out
+      afterComplete: () => {
+        // Fade out after 5 seconds
         setTimeout(() => {
           loveBox.style.transition = "opacity 1s ease";
           loveBox.style.opacity = 0;
@@ -200,13 +199,9 @@
       .type("<p style='font-size:20px;'>Will you be my love of the life?</p>")
       .go();
   }
-
-  // Call the function when the 6th message is shown
-  // Add this line inside wherever pesan6 appears (after it’s revealed in your flow)
-  // Example:
-  // After pesan6 is displayed, call:
-  // showLoveMessage();
 </script>
 
+</body>
+ 
 
 </html>
