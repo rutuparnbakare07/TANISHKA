@@ -177,26 +177,36 @@
   <script>
   // Typing animation for love message
   function showLoveMessage() {
-    const loveBox = document.getElementById("loveMessage");
-    loveBox.innerHTML = ""; // clear previous if any
+  let loveBox = document.getElementById("loveMessage");
 
-    new TypeIt("#loveMessage", {
-      speed: 80,
-      cursor: true,
-      afterComplete: () => {
-        // Fade out after 5 seconds
-        setTimeout(() => {
-          loveBox.style.transition = "opacity 1s ease";
-          loveBox.style.opacity = 0;
-        }, 5000);
-      },
-    })
-      .type("<h1 style='color:red;'>I LOVE YOU ❤️</h1>")
-      .pause(1000)
-      .break()
-      .type("<p style='font-size:20px;'>Will you be my love of the life?</p>")
-      .go();
+  // ✅ If #loveMessage was removed, recreate it dynamically
+  if (!loveBox) {
+    loveBox = document.createElement("div");
+    loveBox.id = "loveMessage";
+    pesan6.insertAdjacentElement("afterend", loveBox);
   }
+
+  loveBox.innerHTML = "";
+  loveBox.style.opacity = 1; // make sure it’s visible again
+
+  new TypeIt("#loveMessage", {
+    speed: 80,
+    cursor: true,
+    afterComplete: () => {
+      // Fade out after 5 seconds
+      setTimeout(() => {
+        loveBox.style.transition = "opacity 1s ease";
+        loveBox.style.opacity = 0;
+      }, 5000);
+    },
+  })
+    .type("<h1 style='color:red;'>I LOVE YOU ❤️</h1>")
+    .pause(1000)
+    .break()
+    .type("<p style='font-size:20px;'>Will you be my love of the life?</p>")
+    .go();
+}
+
 </script>
 
 </body>
