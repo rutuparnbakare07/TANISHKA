@@ -1,17 +1,7 @@
-<!DOCTYPE html>
-<html lang="vi">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Pookie's Pics</title>
-    <link rel="shortcut icon" href="icon.png" type="image/x-icon">
-    <link rel="stylesheet" href="main.css">
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Dancing+Script&display=swap" rel="stylesheet">
-</head>
 <body>
+    <!-- ❤️ Animated Heart Background -->
+    <div id="hearts-bg"></div>
+
     <div id="drag-container">
         <div id="spin-container">
             <img src="6.jpg" alt="">
@@ -28,11 +18,7 @@
     </div>
     
     <div id="music-container"></div>
-    <!-- <div id="canva">
-        <canvas id="canvas"></canvas>
-    </div> -->
 
-    <!-- Audio tự động phát -->
     <audio id="myAudio" autoplay playsinline>
         <source src="setlove.mp3" type="audio/mpeg">
         <source src="setlove.ogg" type="audio/ogg">
@@ -41,6 +27,24 @@
     <script src="main.js"></script>
 
     <script>
+        // === Background Hearts ===
+        const heartsBg = document.getElementById("hearts-bg");
+
+        function createHeart() {
+            const heart = document.createElement("div");
+            heart.classList.add("heart");
+            heart.style.left = Math.random() * 100 + "vw";
+            heart.style.animationDuration = 3 + Math.random() * 2 + "s";
+            heart.style.opacity = Math.random();
+            heartsBg.appendChild(heart);
+            setTimeout(() => {
+                heart.remove();
+            }, 5000);
+        }
+
+        setInterval(createHeart, 200);
+
+        // === Audio & Canvas Effects (same as before) ===
         window.onload = function() {
             var audio = document.getElementById("myAudio");
             audio.muted = false;
@@ -48,9 +52,10 @@
                 console.log('Audio playback failed:', e);
             });
 
-            // Hiệu ứng pháo hoa và trái tim
             const canvas = document.getElementById("canvas");
-            const ctx = canvas.getContext("2d");
+            const ctx = canvas?.getContext?.("2d");
+            if (!ctx) return;
+
             canvas.width = window.innerWidth;
             canvas.height = window.innerHeight;
 
@@ -139,5 +144,57 @@
             animate();
         };
     </script>
+
+    <style>
+        /* ❤️ Floating hearts background */
+        #hearts-bg {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+            z-index: -1;
+            background: radial-gradient(circle at center, #ffe6eb, #ffd6e0, #ffc6d1);
+        }
+
+        .heart {
+            position: absolute;
+            width: 15px;
+            height: 15px;
+            background: red;
+            transform: rotate(45deg);
+            animation: floatUp linear forwards;
+        }
+
+        .heart::before,
+        .heart::after {
+            content: "";
+            position: absolute;
+            width: 15px;
+            height: 15px;
+            background: red;
+            border-radius: 50%;
+        }
+
+        .heart::before {
+            top: -7.5px;
+            left: 0;
+        }
+
+        .heart::after {
+            left: 7.5px;
+            top: 0;
+        }
+
+        @keyframes floatUp {
+            0% {
+                transform: translateY(100vh) rotate(45deg) scale(1);
+            }
+            100% {
+                transform: translateY(-10vh) rotate(45deg) scale(0.5);
+                opacity: 0;
+            }
+        }
+    </style>
 </body>
-</html>
